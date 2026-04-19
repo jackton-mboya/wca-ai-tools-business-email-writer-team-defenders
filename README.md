@@ -23,4 +23,4 @@ The tool uses AI to create a complete email with subject line, greeting, body, a
 
 1. **Install requirements:**
    ```bash
-   pip install -r requirements.txt
+   python src/main.py

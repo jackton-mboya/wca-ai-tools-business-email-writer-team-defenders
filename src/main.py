@@ -1,46 +1,51 @@
-import os
-import json
-from groq import Groq
+import os, json, requests
 from dotenv import load_dotenv
 
-# 1. SETUP: Load API Key safely
+# Load Environment Variables
 load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def generate_business_email():
-    print("\n--- TEAM DEFENDERS AI EMAIL WRITER ---")
-    
-    # 2. USER INPUT: Collecting details for personalization
-    recipient = input("Who is this email for?: ")
-    purpose = input("What is the purpose?: ")
-    # SWAP: We now ask for Tone instead of Key Points
-    tone = input("What is the desired tone? (e.g., Formal, Friendly, Urgent, Professional): ")
+# Main Function
+def generate_email():
 
-    # 3. R-T-C-C-O PROMPT: Using the required framework [cite: 15]
-    prompt = f"""
-    ROLE: Expert Business Communication Consultant.
-    TASK: Write a professional email for a Kenyan business context.
-    CONTEXT: Recipient: {recipient}, Purpose: {purpose}, Tone: {tone}.
-    CONSTRAINTS: Keep it under 200 words. Sender is Jackton Mboya.
-    OUTPUT: Return ONLY a JSON object with 'subject', 'body', and 'signature'.
-    """
+# Get API Key
+    key = os.getenv("GROQ_API_KEY")
+    if not key:
+        return print("❌ Set GROQ_API_KEY in .env")
 
-    # 4. API CALL: Sending request to Groq Cloud [cite: 15]
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": prompt}],
-        response_format={"type": "json_object"}
-    )
+# Get User Input
+    p = input("Purpose: ")
+    r = input("Recipient: ")
+    t = input("Tone (Professional/Formal/Friendly): ")
 
-    # 5. JSON HANDLING: Parsing the response [cite: 15]
-    email_data = json.loads(response.choices[0].message.content)
+#Generating Message
+    print("\n🤖 Generating...")
 
-    print("\n" + "="*40)
-    print(f"SUBJECT: {email_data['subject']}")
-    print("-" * 40)
-    print(email_data['body'])
-    print(f"\nBest Regards,\nJackton Mboya") # Professional Signature
-    print("="*40 + "\n")
+    try:
+# API Call
+        res = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={"Authorization": f"Bearer {key}"},
+            json={
+                "model": "llama-3.3-70b-versatile",
+                "messages": [{
+                    "role": "user",
+                    "content": f"Write a {t} email to {r} about {p}. Do NOT include any closing like 'Best regards' or a name. Return JSON with subject and body."
+                }]
+            }
+        ).json()
 
+# Process Respond
+        msg = res["choices"][0]["message"]["content"]
+        email = json.loads(msg.replace("```json","").replace("```",""))
+
+# Display Output
+        print(f"\n📌 {email['subject']}\n\n{email['body']}")
+        print("\nBest regards,\nJackton Mboya")
+
+# Error Handling
+    except Exception as e:
+        print("❌ Error:", e)
+
+# Run Program
 if __name__ == "__main__":
-    generate_business_email()
+    generate_email()

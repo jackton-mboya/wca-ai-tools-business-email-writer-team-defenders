@@ -36,7 +36,7 @@ def generate_email():
 
 # Process Respond
         msg = res["choices"][0]["message"]["content"]
-        email = json.loads(msg.replace("```json","").replace("```",""))
+        email = json.loads(msg.replace("```json","").replace("```",""),strict=False)
 
 # Display Output
         print(f"\n📌 {email['subject']}\n\n{email['body']}")

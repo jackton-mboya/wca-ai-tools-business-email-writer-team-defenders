@@ -7,7 +7,7 @@
 ## Group Members
 1. Jackton Mboya
 2. Dorine kamande
-3. [Name 3]
+3. Moses Kahuho
 4. [Name 4]
 
 ## What This Tool Does
@@ -18,9 +18,3 @@ This AI-powered tool generates professional business emails instantly. Users ent
 - The tone (formal/professional/friendly)
 
 The tool uses AI to create a complete email with subject line, greeting, body, and closing. - Ready to copy and use.
-
-## How to Run It
-
-1. **Install requirements:**
-   ```bash
-   python src/main.py

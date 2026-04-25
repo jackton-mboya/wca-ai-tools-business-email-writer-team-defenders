@@ -8,7 +8,7 @@
 1. Jackton Mboya
 2. Dorine kamande
 3. Moses Kahuho
-4. [Name 4]
+4. Peter Ndea
 
 ## What This Tool Does
 

@@ -49,7 +49,7 @@ def generate_email():
         msg = res["choices"][0]["message"]["content"]
         email = json.loads(msg.replace("```json","").replace("```",""), strict=False)
 
-        # DISPLAY OUTPUT
+        #DISPLAY OUTPUT
         print(f"\n📌 {email['subject']}\n\n{email['body']}")
         print("\nBest regards,\nJackton Mboya")
 

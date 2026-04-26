@@ -10,7 +10,7 @@ This project is an AI-powered email generator designed to help users quickly cre
 
 **Group Name:** Team Defenders
 **Course:** We Can Academy AI Course
-**Due Date:** April 28, 2026
+**Due Date:** April 26, 2026
 
 ### Group Members
 

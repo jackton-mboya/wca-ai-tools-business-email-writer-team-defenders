@@ -87,5 +87,5 @@ Many people struggle with writing professional emails due to lack of experience 
 
 ## 🔗 GitHub Repository
 
-Business Email Writer
+wca-ai-tools-business-email-writer-team-defenders
 
